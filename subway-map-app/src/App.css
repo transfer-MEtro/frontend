@@ -14,11 +14,13 @@
 }
 
 .Subway-map {
-  /* Your styling here */
-  width: 100%;
-  height: auto;
-  max-width: 900px;
-  /* or any other size */
+  width: 100vw;
+  /* 100% of viewport width */
+  height: 100vh;
+  /* 100% of viewport height */
+  max-width: 100%;
+  /* Ensures SVG does not exceed the width of its container */
+  max-height: 100%;
 }
 
 .no-select {
@@ -82,7 +84,8 @@
   /* Maintains aspect ratio */
 }
 
-.App-header {
+.App-header,
+.map-container {
   background-color: #ffffff;
   min-height: 100vh;
   display: flex;

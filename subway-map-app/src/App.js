@@ -42,16 +42,19 @@ function App() {
   }, []);
 
 
+  // INITIAL VIEW
 
   // Assuming you know the dimensions of your SVG
   const svgWidth = 1000; // Replace with actual width of your SVG
   const svgHeight = 1000; // Replace with actual height of your SVG
   const initialZoom = 0.3; // Adjust as needed for initial zoom level
+  const offsetX = 250; // Increase or decrease this value to shift more or less
+  const offsetY = 50; // Increase or decrease this value to shift more or less
 
   // Calculate initial viewBox values to center and zoom
   const initialViewBox = {
-    x: svgWidth / 2 * (1 - initialZoom),
-    y: svgHeight / 2 * (1 - initialZoom),
+    x: (svgWidth / 2 * (1 - initialZoom)) + offsetX,
+    y: (svgHeight / 2 * (1 - initialZoom)) + offsetY,
     width: svgWidth * initialZoom,
     height: svgHeight * initialZoom
   };
@@ -116,12 +119,14 @@ function App() {
   };
 
   useEffect(() => {
-    const newWidth = svgTotalWidth / zoomLevel;
-    const newHeight = svgTotalHeight / zoomLevel;
-    const newX = (svgTotalWidth - newWidth) / 2;
-    const newY = (svgTotalHeight - newHeight) / 2;
+    if (zoomLevel !== 1) { // Only update viewBox if zoomLevel is not at its initial state
+      const newWidth = svgTotalWidth / zoomLevel;
+      const newHeight = svgTotalHeight / zoomLevel;
+      const newX = (svgTotalWidth - newWidth) / 2;
+      const newY = (svgTotalHeight - newHeight) / 2;
 
-    setViewBox(`${newX} ${newY} ${newWidth} ${newHeight}`);
+      setViewBox(`${newX} ${newY} ${newWidth} ${newHeight}`);
+    }
   }, [zoomLevel]);
 
 
@@ -144,7 +149,6 @@ function App() {
             {menuMessage}
           </div>
         )}
-
       </header>
     </div>
   );
