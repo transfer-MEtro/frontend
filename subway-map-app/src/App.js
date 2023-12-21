@@ -53,12 +53,47 @@ function App() {
 
   const [viewBox, setViewBox] = useState(`${initialViewBox.x} ${initialViewBox.y} ${initialViewBox.width} ${initialViewBox.height}`);
 
+  // PANNING
+  const [isDragging, setIsDragging] = useState(false);
+  const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (event) => {
+    setIsDragging(true);
+    setStartDrag({ x: event.clientX, y: event.clientY });
+    document.body.classList.add("no-select");
+    window.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleMouseMove = (event) => {
+    if (isDragging) {
+      const currentViewBox = viewBox.split(' ').map(Number);
+      const dx = event.clientX - startDrag.x;
+      const dy = event.clientY - startDrag.y;
+
+      // Calculate new viewBox values
+      const newViewBoxX = currentViewBox[0] - dx;
+      const newViewBoxY = currentViewBox[1] - dy;
+
+      // Add boundary checks here
+      // ...
+
+      // Update the viewBox state
+      setViewBox(`${newViewBoxX} ${newViewBoxY} ${currentViewBox[2]} ${currentViewBox[3]}`);
+      setStartDrag({ x: event.clientX, y: event.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    document.body.classList.remove("no-select");
+    window.removeEventListener('mouseup', handleMouseUp);
+  };
 
 
   return (
-    <div className="App">
+    <div className="App" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <header className="App-header">
-        <SubwayMap className="Subway-map" viewBox={viewBox} />
+        <SubwayMap className="Subway-map" viewBox={viewBox} onMouseDown={handleMouseDown} />
 
         {isMenuVisible && (
           <div className="Menu">
