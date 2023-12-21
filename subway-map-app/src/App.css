@@ -1,18 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .Subway-map {
   width: 100vw;
   /* 100% of viewport width */
@@ -66,10 +51,11 @@
 }
 
 .button-container button {
-  background-color: transparent;
+  background-color: white;
   /* Or any desired color */
-  border: none;
-  /* Removes the default border */
+  border: 2px solid #000000;
+  /* Black border, 2px thick */
+  border-radius: 5px;
   cursor: pointer;
   /* Changes cursor to pointer on hover */
   margin-bottom: 5px;
@@ -103,16 +89,38 @@
   padding: 5px 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.drawer {
+  position: fixed;
+  left: -500px;
+  /* Width of the drawer */
+  top: 0;
+  width: 500px;
+  height: 100%;
+  background-color: #fff;
+  transition: left 0.3s;
+  z-index: 1000;
+  border: 2px solid #000000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.drawer.open {
+  left: 0;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.toggle-drawer-button {
+  position: absolute;
+  right: -35px;
+  /* Adjust based on button size */
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 2px solid #000000;
+  /* Black border, 2px thick */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-drawer-button img {
+  width: 20px;
+  /* Adjust size as needed */
+  height: 50px;
 }

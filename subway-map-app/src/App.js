@@ -6,6 +6,8 @@ import './App.css';
 import { ReactComponent as SubwayMap } from './assets/map.svg';
 import ZoomInIcon from './assets/zoom_in.png'; // Adjust path as necessary
 import ZoomOutIcon from './assets/zoom_out.png'; // Adjust path as necessary
+import RightArrowIcon from './assets/right_arrow.png';
+import LeftArrowIcon from './assets/left_arrow.png';
 
 
 function App() {
@@ -47,19 +49,21 @@ function App() {
   // Assuming you know the dimensions of your SVG
   const svgWidth = 1000; // Replace with actual width of your SVG
   const svgHeight = 1000; // Replace with actual height of your SVG
-  const initialZoom = 0.3; // Adjust as needed for initial zoom level
-  const offsetX = 250; // Increase or decrease this value to shift more or less
+  const MIN_ZOOM_LEVEL = 1.0;
+  const initialZoom = 0.3;
+  const offsetX = 300; // Increase or decrease this value to shift more or less
   const offsetY = 50; // Increase or decrease this value to shift more or less
 
   // Calculate initial viewBox values to center and zoom
-  const initialViewBox = {
-    x: (svgWidth / 2 * (1 - initialZoom)) + offsetX,
-    y: (svgHeight / 2 * (1 - initialZoom)) + offsetY,
-    width: svgWidth * initialZoom,
-    height: svgHeight * initialZoom
-  };
+  // const initialViewBox = {
+  //   x: (svgWidth / 2 * (1 - initialZoom)) + offsetX,
+  //   y: (svgHeight / 2 * (1 - initialZoom)) + offsetY,
+  //   width: svgWidth * initialZoom,
+  //   height: svgHeight * initialZoom
+  // };
 
-  const [viewBox, setViewBox] = useState(`${initialViewBox.x} ${initialViewBox.y} ${initialViewBox.width} ${initialViewBox.height}`);
+  const initialViewBoxString = `${(svgWidth / 2 * (1 - initialZoom)) + offsetX} ${(svgHeight / 2 * (1 - initialZoom)) + offsetY} ${svgWidth * initialZoom} ${svgHeight * initialZoom}`;
+  const [viewBox, setViewBox] = useState(initialViewBoxString);
 
   // PANNING
   const [isDragging, setIsDragging] = useState(false);
@@ -108,26 +112,38 @@ function App() {
 
 
   // ZOOMING
-  const [zoomLevel, setZoomLevel] = useState(1); // Start with a default zoom level of 1
+  const [zoomLevel, setZoomLevel] = useState(initialZoom);
 
   const handleZoomIn = () => {
     setZoomLevel(prevZoomLevel => Math.min(prevZoomLevel * 1.2, 5)); // Zoom in by 20%, max zoom level 5
   };
 
   const handleZoomOut = () => {
-    setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel / 1.2, 0.2)); // Zoom out by 20%, min zoom level 0.2
+    setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel / 1.2, MIN_ZOOM_LEVEL)); // Ensure zoom level does not go below MIN_ZOOM_LEVEL
   };
 
   useEffect(() => {
-    if (zoomLevel !== 1) { // Only update viewBox if zoomLevel is not at its initial state
+    if (zoomLevel !== initialZoom) {
+      const currentViewBox = viewBox.split(' ').map(Number);
+
       const newWidth = svgTotalWidth / zoomLevel;
       const newHeight = svgTotalHeight / zoomLevel;
-      const newX = (svgTotalWidth - newWidth) / 2;
-      const newY = (svgTotalHeight - newHeight) / 2;
+
+      // Calculate the center based on the current viewBox
+      const centerX = currentViewBox[0] + currentViewBox[2] / 2;
+      const centerY = currentViewBox[1] + currentViewBox[3] / 2;
+
+      const newX = centerX - newWidth / 2;
+      const newY = centerY - newHeight / 2;
 
       setViewBox(`${newX} ${newY} ${newWidth} ${newHeight}`);
     }
-  }, [zoomLevel]);
+  }, [zoomLevel, viewBox, initialZoom]);
+
+
+  //DRAWER
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
 
 
   return (
@@ -143,6 +159,13 @@ function App() {
           <button onClick={handleZoomOut}>
             <img src={ZoomOutIcon} alt="Zoom Out" />
           </button>
+        </div>
+
+        <div className={`drawer ${isDrawerOpen ? 'open' : ''}`}>
+          <button className="toggle-drawer-button" onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
+            <img src={isDrawerOpen ? LeftArrowIcon : RightArrowIcon} alt="Toggle Drawer" />
+          </button>
+          {/* Drawer content goes here */}
         </div>
         {isMenuVisible && (
           <div className="Menu">
