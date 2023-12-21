@@ -144,7 +144,7 @@ function App() {
   // --------------------------------------------------
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  // TRAINS
+  // GET TRAINS AND CONGESTION DATA
   const [selectedStationName, setSelectedStationName] = useState('');
   const [stationData, setStationData] = useState([]);
 
@@ -167,6 +167,17 @@ function App() {
     }
   }, [selectedStationName]);
 
+
+  // SECONDS TO MINUTES
+  function formatETA(seconds) {
+    if (seconds < 60) {
+      return `${seconds}초`;
+    } else {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}분 ${remainingSeconds}초`;
+    }
+  }
 
 
   // --------------------------------------------------
@@ -194,14 +205,14 @@ function App() {
             <div className="station-info">
               {stationData.map((item, index) => (
                 <div key={index}>
-                  <p>Station Name: {item.stationName}</p>
+                  <p>지하철역: {item.stationName}</p>
+                  <p>열차번호: {item.trainId}</p>
+                  <p>Subway ID: {item.subwayId}</p>
                   <p>Line Number: {item.lineNumber}</p>
-                  <p>ETA: {item.estimatedTimeArrival} seconds</p>
+                  <p>예상도착시간: {formatETA(item.estimatedTimeArrival)}</p>
                   <p>Next Station ID: {item.nextStationId}</p>
                   <p>Previous Station ID: {item.previousStationId}</p>
                   <p>Station ID: {item.stationId}</p>
-                  <p>Subway ID: {item.subwayId}</p>
-                  <p>Train ID: {item.trainId}</p>
                 </div>
               ))}
             </div>
