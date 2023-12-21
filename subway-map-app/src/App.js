@@ -37,10 +37,28 @@ function App() {
   }, []);
 
 
+
+  // Assuming you know the dimensions of your SVG
+  const svgWidth = 1000; // Replace with actual width of your SVG
+  const svgHeight = 1000; // Replace with actual height of your SVG
+  const initialZoom = 0.5; // Adjust as needed for initial zoom level
+
+  // Calculate initial viewBox values to center and zoom
+  const initialViewBox = {
+    x: svgWidth / 2 * (1 - initialZoom),
+    y: svgHeight / 2 * (1 - initialZoom),
+    width: svgWidth * initialZoom,
+    height: svgHeight * initialZoom
+  };
+
+  const [viewBox, setViewBox] = useState(`${initialViewBox.x} ${initialViewBox.y} ${initialViewBox.width} ${initialViewBox.height}`);
+
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <SubwayMap className="Subway-map" />
+        <SubwayMap className="Subway-map" viewBox={viewBox} />
 
         {isMenuVisible && (
           <div className="Menu">
