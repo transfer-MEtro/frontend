@@ -146,6 +146,7 @@ function App() {
 
   // TRAINS
   const [selectedStationName, setSelectedStationName] = useState('');
+  const [stationData, setStationData] = useState([]);
 
   useEffect(() => {
     if (selectedStationName) {
@@ -156,7 +157,9 @@ function App() {
         .then(response => response.json())
         .then(data => {
           // Process your data here
+          setStationData(data);
           console.log(data);
+          console.log(`Station was clicked: ${data.stationName}`);
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -186,7 +189,23 @@ function App() {
           <button className="toggle-drawer-button" onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
             <img src={isDrawerOpen ? LeftArrowIcon : RightArrowIcon} alt="Toggle Drawer" />
           </button>
-          {/* Drawer content goes here */}
+
+          {stationData && (
+            <div className="station-info">
+              {stationData.map((item, index) => (
+                <div key={index}>
+                  <p>Station Name: {item.stationName}</p>
+                  <p>Line Number: {item.lineNumber}</p>
+                  <p>ETA: {item.estimatedTimeArrival} seconds</p>
+                  <p>Next Station ID: {item.nextStationId}</p>
+                  <p>Previous Station ID: {item.previousStationId}</p>
+                  <p>Station ID: {item.stationId}</p>
+                  <p>Subway ID: {item.subwayId}</p>
+                  <p>Train ID: {item.trainId}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         {isMenuVisible && (
           <div className="Menu">

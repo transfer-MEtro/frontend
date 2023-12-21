@@ -124,3 +124,29 @@
   /* Adjust size as needed */
   height: 50px;
 }
+
+.station-info {
+  color: #000000;
+  /* Change text color to black */
+  font-size: 14px;
+  /* Set a smaller font size */
+  padding: 10px;
+  /* Add more styles as needed */
+}
+
+.station-info p {
+  margin: 5px 0;
+  /* Adjust spacing between lines */
+  /* Additional styling for paragraph elements if needed */
+}
+
+.station-info div {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  /* Thin divisor line */
+}
+
+/* Remove the border from the last item */
+.station-info div:last-child {
+  border-bottom: none;
+}
