@@ -14,11 +14,13 @@
 }
 
 .Subway-map {
-  /* Your styling here */
-  width: 100%;
-  height: auto;
-  max-width: 900px;
-  /* or any other size */
+  width: 100vw;
+  /* 100% of viewport width */
+  height: 100vh;
+  /* 100% of viewport height */
+  max-width: 100%;
+  /* Ensures SVG does not exceed the width of its container */
+  max-height: 100%;
 }
 
 .no-select {
@@ -45,7 +47,45 @@
   color: black;
 }
 
-.App-header {
+.button-container {
+  position: fixed;
+  /* or 'absolute' depending on your layout */
+  bottom: 20px;
+  /* Distance from bottom */
+  right: 20px;
+  /* Distance from right */
+  z-index: 10;
+  /* Ensure it's above other elements */
+
+  display: flex;
+  /* Use flex layout */
+  flex-direction: column;
+  /* Stack children vertically */
+  align-items: center;
+  /* Center-align the buttons horizontally */
+}
+
+.button-container button {
+  background-color: transparent;
+  /* Or any desired color */
+  border: none;
+  /* Removes the default border */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
+  margin-bottom: 5px;
+  /* Space between buttons */
+  padding: 5px;
+}
+
+.button-container button img {
+  width: 30px;
+  /* Adjust as needed */
+  height: auto;
+  /* Maintains aspect ratio */
+}
+
+.App-header,
+.map-container {
   background-color: #ffffff;
   min-height: 100vh;
   display: flex;
@@ -54,6 +94,13 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative;
+  /* Ensures that the child absolute positioning is relative to this container */
+}
+
+.button-container button {
+  margin: 5px;
+  padding: 5px 10px;
 }
 
 .App-link {
