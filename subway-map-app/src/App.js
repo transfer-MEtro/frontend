@@ -37,10 +37,72 @@ function App() {
   }, []);
 
 
+
+  // Assuming you know the dimensions of your SVG
+  const svgWidth = 1000; // Replace with actual width of your SVG
+  const svgHeight = 1000; // Replace with actual height of your SVG
+  const initialZoom = 0.3; // Adjust as needed for initial zoom level
+
+  // Calculate initial viewBox values to center and zoom
+  const initialViewBox = {
+    x: svgWidth / 2 * (1 - initialZoom),
+    y: svgHeight / 2 * (1 - initialZoom),
+    width: svgWidth * initialZoom,
+    height: svgHeight * initialZoom
+  };
+
+  const [viewBox, setViewBox] = useState(`${initialViewBox.x} ${initialViewBox.y} ${initialViewBox.width} ${initialViewBox.height}`);
+
+  // PANNING
+  const [isDragging, setIsDragging] = useState(false);
+  const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (event) => {
+    setIsDragging(true);
+    setStartDrag({ x: event.clientX, y: event.clientY });
+    document.body.classList.add("no-select");
+    window.addEventListener('mouseup', handleMouseUp);
+  };
+
+  // Define the total dimensions of the SVG
+  const svgTotalWidth = 1180;
+  const svgTotalHeight = 1080;
+
+  const handleMouseMove = (event) => {
+    if (isDragging) {
+      const currentViewBox = viewBox.split(' ').map(Number);
+      const dx = event.clientX - startDrag.x;
+      const dy = event.clientY - startDrag.y;
+
+      // Calculate potential new viewBox values
+      let newViewBoxX = currentViewBox[0] - dx;
+      let newViewBoxY = currentViewBox[1] - dy;
+
+      // Calculate maximum allowable coordinates
+      const maxX = svgTotalWidth - currentViewBox[2];
+      const maxY = svgTotalHeight - currentViewBox[3];
+
+      // Clamp newViewBoxX and newViewBoxY within the boundaries
+      newViewBoxX = Math.min(Math.max(newViewBoxX, 0), maxX);
+      newViewBoxY = Math.min(Math.max(newViewBoxY, 0), maxY);
+
+      // Update the viewBox state
+      setViewBox(`${newViewBoxX} ${newViewBoxY} ${currentViewBox[2]} ${currentViewBox[3]}`);
+      setStartDrag({ x: event.clientX, y: event.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    document.body.classList.remove("no-select");
+    window.removeEventListener('mouseup', handleMouseUp);
+  };
+
+
   return (
-    <div className="App">
+    <div className="App" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <header className="App-header">
-        <SubwayMap className="Subway-map" />
+        <SubwayMap className="Subway-map" viewBox={viewBox} onMouseDown={handleMouseDown} />
 
         {isMenuVisible && (
           <div className="Menu">
