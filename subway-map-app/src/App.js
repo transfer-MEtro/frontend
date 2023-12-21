@@ -41,7 +41,7 @@ function App() {
   // Assuming you know the dimensions of your SVG
   const svgWidth = 1000; // Replace with actual width of your SVG
   const svgHeight = 1000; // Replace with actual height of your SVG
-  const initialZoom = 0.5; // Adjust as needed for initial zoom level
+  const initialZoom = 0.3; // Adjust as needed for initial zoom level
 
   // Calculate initial viewBox values to center and zoom
   const initialViewBox = {
@@ -64,18 +64,27 @@ function App() {
     window.addEventListener('mouseup', handleMouseUp);
   };
 
+  // Define the total dimensions of the SVG
+  const svgTotalWidth = 1180;
+  const svgTotalHeight = 1080;
+
   const handleMouseMove = (event) => {
     if (isDragging) {
       const currentViewBox = viewBox.split(' ').map(Number);
       const dx = event.clientX - startDrag.x;
       const dy = event.clientY - startDrag.y;
 
-      // Calculate new viewBox values
-      const newViewBoxX = currentViewBox[0] - dx;
-      const newViewBoxY = currentViewBox[1] - dy;
+      // Calculate potential new viewBox values
+      let newViewBoxX = currentViewBox[0] - dx;
+      let newViewBoxY = currentViewBox[1] - dy;
 
-      // Add boundary checks here
-      // ...
+      // Calculate maximum allowable coordinates
+      const maxX = svgTotalWidth - currentViewBox[2];
+      const maxY = svgTotalHeight - currentViewBox[3];
+
+      // Clamp newViewBoxX and newViewBoxY within the boundaries
+      newViewBoxX = Math.min(Math.max(newViewBoxX, 0), maxX);
+      newViewBoxY = Math.min(Math.max(newViewBoxY, 0), maxY);
 
       // Update the viewBox state
       setViewBox(`${newViewBoxX} ${newViewBoxY} ${currentViewBox[2]} ${currentViewBox[3]}`);
