@@ -91,10 +91,10 @@
 
 .drawer {
   position: fixed;
-  left: -500px;
+  left: -400px;
   /* Width of the drawer */
   top: 0;
-  width: 500px;
+  width: 400px;
   height: 100%;
   background-color: #fff;
   transition: left 0.3s;

@@ -11,18 +11,20 @@ import LeftArrowIcon from './assets/left_arrow.png';
 
 
 function App() {
+
+  // --------------------------------------------------
+  //                        MENU
+  // --------------------------------------------------
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [menuMessage, setMenuMessage] = useState('');
 
   const handleStationClick = (station) => {
-    console.log('홍대입구');
-    console.log('Station clicked:', station.getAttribute('data-station-name'));
-
     const rawStationName = station.getAttribute('data-station-name');
     const decodedStationName = unescapeJs(rawStationName);
-    console.log('Station clicked:', decodedStationName);
+
     setMenuMessage(`Station was clicked: ${decodedStationName}`);
     setMenuVisibility(true);
+    setSelectedStationName(decodedStationName);
   };
 
   useEffect(() => {
@@ -44,9 +46,9 @@ function App() {
   }, []);
 
 
-  // INITIAL VIEW
-
-  // Assuming you know the dimensions of your SVG
+  // --------------------------------------------------
+  //                 INITIAL VIEWBOX
+  // --------------------------------------------------
   const svgWidth = 1000; // Replace with actual width of your SVG
   const svgHeight = 1000; // Replace with actual height of your SVG
   const MIN_ZOOM_LEVEL = 1.0;
@@ -54,18 +56,12 @@ function App() {
   const offsetX = 300; // Increase or decrease this value to shift more or less
   const offsetY = 50; // Increase or decrease this value to shift more or less
 
-  // Calculate initial viewBox values to center and zoom
-  // const initialViewBox = {
-  //   x: (svgWidth / 2 * (1 - initialZoom)) + offsetX,
-  //   y: (svgHeight / 2 * (1 - initialZoom)) + offsetY,
-  //   width: svgWidth * initialZoom,
-  //   height: svgHeight * initialZoom
-  // };
-
   const initialViewBoxString = `${(svgWidth / 2 * (1 - initialZoom)) + offsetX} ${(svgHeight / 2 * (1 - initialZoom)) + offsetY} ${svgWidth * initialZoom} ${svgHeight * initialZoom}`;
   const [viewBox, setViewBox] = useState(initialViewBoxString);
 
-  // PANNING
+  // --------------------------------------------------
+  //                     PANNING
+  // --------------------------------------------------
   const [isDragging, setIsDragging] = useState(false);
   const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
 
@@ -111,7 +107,9 @@ function App() {
   };
 
 
-  // ZOOMING
+  // --------------------------------------------------
+  //                        ZOOM
+  // --------------------------------------------------
   const [zoomLevel, setZoomLevel] = useState(initialZoom);
 
   const handleZoomIn = () => {
@@ -141,11 +139,34 @@ function App() {
   }, [zoomLevel, viewBox, initialZoom]);
 
 
-  //DRAWER
+  // --------------------------------------------------
+  //                        DRAWER
+  // --------------------------------------------------
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  // TRAINS
+  const [selectedStationName, setSelectedStationName] = useState('');
+
+  useEffect(() => {
+    if (selectedStationName) {
+      console.log(selectedStationName);
+      const url = `http://127.0.0.1:5001/stations/${encodeURIComponent(selectedStationName)}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Process your data here
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+  }, [selectedStationName]);
 
 
+
+  // --------------------------------------------------
   return (
     <div className="App" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <header className="App-header">
