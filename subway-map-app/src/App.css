@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 .Subway-map {
   width: 100vw;
   /* 100% of viewport width */
@@ -100,6 +102,35 @@
   transition: left 0.3s;
   z-index: 1000;
   border: 2px solid #000000;
+}
+
+.drawer-content {
+  max-height: 800px;
+  /* Adjust this value based on your needs */
+  overflow-y: auto;
+  /* Enables vertical scrolling if content exceeds max-height */
+}
+
+.drawer-header {
+  background-color: #260f8d;
+  /* Example background color */
+  padding: 10px 15px;
+  /* Example padding */
+  text-align: left;
+  /* Center the title or content */
+  border-bottom: 1px solid #0a0d2c;
+  /* Optional bottom border for separation */
+}
+
+.drawer-header h2 {
+  font-family: 'Noto Sans', sans-serif;
+  /* Use Noto Sans font */
+  color: white;
+  /* Set text color to white */
+  font-size: 16px;
+  /* Set font size to 16px */
+  margin: 0;
+  /* Remove default margin */
 }
 
 .drawer.open {

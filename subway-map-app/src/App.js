@@ -201,22 +201,29 @@ function App() {
             <img src={isDrawerOpen ? LeftArrowIcon : RightArrowIcon} alt="Toggle Drawer" />
           </button>
 
-          {stationData && (
-            <div className="station-info">
-              {stationData.map((item, index) => (
-                <div key={index}>
-                  <p>지하철역: {item.stationName}</p>
-                  <p>열차번호: {item.trainId}</p>
-                  <p>Subway ID: {item.subwayId}</p>
-                  <p>Line Number: {item.lineNumber}</p>
-                  <p>예상도착시간: {formatETA(item.estimatedTimeArrival)}</p>
-                  <p>Next Station ID: {item.nextStationId}</p>
-                  <p>Previous Station ID: {item.previousStationId}</p>
-                  <p>Station ID: {item.stationId}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="drawer-header">
+            <h2>Real Time Congestion</h2>
+          </div>
+
+          <div className="drawer-content">
+            {stationData && (
+              <div className="station-info">
+                {stationData.map((item, index) => (
+                  <div key={index}>
+                    <p>지하철역: {item.stationName}</p>
+                    <p>열차번호: {item.trainId}</p>
+                    <p>Subway ID: {item.subwayId}</p>
+                    <p>Line Number: {item.lineNumber}</p>
+                    <p>예상도착시간: {formatETA(item.estimatedTimeArrival)}</p>
+                    <p>Next Station ID: {item.nextStationId}</p>
+                    <p>Previous Station ID: {item.previousStationId}</p>
+                    <p>Station ID: {item.stationId}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
         </div>
         {isMenuVisible && (
           <div className="Menu">
