@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
 
 .Subway-map {
   width: 100vw;
@@ -19,19 +19,6 @@
   /* IE10+/Edge */
   user-select: none;
   /* Standard */
-}
-
-.Menu {
-  position: absolute;
-  top: 20px;
-  /* Adjust as needed */
-  left: 20px;
-  /* Adjust as needed */
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  color: black;
 }
 
 .button-container {
@@ -128,7 +115,7 @@
 }
 
 .drawer-header h2 {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: bold;
   /* Use Noto Sans font */
   color: white;

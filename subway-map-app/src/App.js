@@ -16,15 +16,9 @@ function App() {
   // --------------------------------------------------
   //                        MENU
   // --------------------------------------------------
-  const [isMenuVisible, setMenuVisibility] = useState(false);
-  const [menuMessage, setMenuMessage] = useState('');
-
   const handleStationClick = (station) => {
     const rawStationName = station.getAttribute('data-station-name');
     const decodedStationName = unescapeJs(rawStationName);
-
-    setMenuMessage(`Station was clicked: ${decodedStationName}`);
-    setMenuVisibility(true);
     setSelectedStationName(decodedStationName);
   };
 
@@ -251,11 +245,6 @@ function App() {
           </div>
 
         </div>
-        {isMenuVisible && (
-          <div className="Menu">
-            {menuMessage}
-          </div>
-        )}
       </header>
     </div>
   );
