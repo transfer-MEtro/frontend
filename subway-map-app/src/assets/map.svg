@@ -1534,7 +1534,7 @@
 <circle class="st40" cx="710.5" cy="1072.5" r="2"/>
 <circle class="st50" cx="711.8" cy="673.9" r="2"/>
 <circle class="st48" cx="714.5" cy="594.5" r="2"/>
-<circle class="st45" cx="715.5" cy="501.5" r="2"/>
+<circle class="st45" data-station-name="아현" cx="715.5" cy="501.5" r="2"/>
 <circle class="st54" cx="716.5" cy="1045.5" r="2"/>
 <circle class="st78" cx="717" cy="679.9" r="3.5"/>
 <circle class="st46" data-station-name="애오개" cx="718.5" cy="512.5" r="2"/>
@@ -1557,7 +1557,7 @@
 <circle class="st25" cx="752" cy="552" r="3"/>
 <circle class="st56" cx="752.5" cy="751.5" r="2"/>
 <circle class="st40" cx="752.5" cy="1072.5" r="2"/>
-<circle class="st25" cx="753" cy="502" r="3"/>
+<circle class="st25" data-station-name="시청" cx="753" cy="502" r="3"/>
 <circle class="st59" cx="753.5" cy="467.5" r="2"/>
 <circle class="st46" data-station-name="광화문" cx="753.5" cy="479.5" r="2"/>
 <circle class="st40" cx="753.5" cy="532.5" r="2"/>
@@ -1571,7 +1571,7 @@
 <circle class="st59" cx="766.5" cy="467.5" r="2"/>
 <circle class="st40" cx="766.5" cy="1072.5" r="2"/>
 <circle class="st25" cx="767" cy="558" r="3"/>
-<circle class="st45" cx="767.5" cy="501.5" r="2"/>
+<circle class="st45" data-station-name="을지로입구" cx="767.5" cy="501.5" r="2"/>
 <circle class="st54" cx="768.5" cy="1045.5" r="2"/>
 <circle class="st56" cx="770.5" cy="517.5" r="2"/>
 <circle class="st56" cx="775.5" cy="649.5" r="2"/>
@@ -1581,7 +1581,7 @@
 <circle class="st25" cx="776" cy="631" r="3"/>
 <circle class="st40" cx="780.5" cy="1072.5" r="2"/>
 <circle class="st25" data-station-name="종로3가" cx="781" cy="482" r="3"/>
-<circle class="st25" cx="781" cy="502" r="3"/>
+<circle class="st25" data-station-name="을지로3가" cx="781" cy="502" r="3"/>
 <circle class="st25" cx="781" cy="519" r="3"/>
 <circle class="st62" cx="781.5" cy="544.5" r="2"/>
 <circle class="st60" cx="781.5" cy="558.5" r="2"/>
@@ -1616,7 +1616,7 @@
 <circle class="st62" cx="828.5" cy="467.5" r="2"/>
 <circle class="st59" cx="828.5" cy="530.5" r="2"/>
 <circle class="st25" cx="829" cy="483" r="3"/>
-<circle class="st25" cx="829" cy="502" r="3"/>
+<circle class="st25" data-station-name="신당" cx="829" cy="502" r="3"/>
 <circle class="st59" cx="834.5" cy="566.5" r="2"/>
 <circle class="st48" cx="834.5" cy="588.5" r="2"/>
 <circle class="st47" cx="834.5" cy="601.5" r="2"/>
@@ -1637,14 +1637,14 @@
 <circle class="st79" cx="845.5" cy="491.5" r="3.5"/>
 <circle class="st25" cx="846" cy="416" r="3"/>
 <circle class="st25" cx="846" cy="459" r="3"/>
-<circle class="st25" cx="846" cy="483" r="3"/>
+<circle class="st25" data-station-name="신설동" cx="846" cy="483" r="3"/>
 <circle class="st59" cx="846.5" cy="558.5" r="2"/>
 <circle class="st40" cx="850.5" cy="1072.5" r="2"/>
 <circle class="st57" cx="852.5" cy="320.5" r="2"/>
 <circle class="st63" cx="852.5" cy="1029.5" r="2"/>
 <circle class="st54" cx="852.5" cy="1045.5" r="2"/>
 <circle class="st63" cx="858.5" cy="704.5" r="2"/>
-<circle class="st45" cx="859.5" cy="501.5" r="2"/>
+<circle class="st45" data-station-name="상왕십리" cx="859.5" cy="501.5" r="2"/>
 <circle class="st62" cx="860.5" cy="459.5" r="2"/>
 <circle class="st46" data-station-name="행당" cx="860.5" cy="529.5" r="2"/>
 <circle class="st79" cx="862.5" cy="187.5" r="3.5"/>
@@ -1663,7 +1663,7 @@
 <circle class="st47" cx="867.5" cy="601.5" r="2"/>
 <circle class="st45" cx="868.5" cy="617.5" r="2"/>
 <circle class="st56" cx="869.3" cy="393.1" r="2"/>
-<circle class="st45" cx="872.5" cy="491.5" r="2"/>
+<circle class="st45" data-station-name="용두" cx="872.5" cy="491.5" r="2"/>
 <circle class="st59" cx="875.5" cy="631.5" r="2"/>
 <circle class="st56" cx="878.5" cy="272.5" r="2"/>
 <circle class="st56" cx="878.5" cy="307.5" r="2"/>
@@ -1680,9 +1680,9 @@
 <circle class="st25" cx="887" cy="480" r="3"/>
 <circle class="st25" data-station-name="왕십리" cx="887" cy="502" r="3"/>
 <circle class="st56" cx="889.5" cy="236.5" r="2"/>
-<circle class="st45" cx="889.5" cy="518.5" r="2"/>
-<circle class="st45" cx="892.5" cy="494.5" r="2"/>
-<circle class="st45" cx="892.5" cy="534.5" r="2"/>
+<circle class="st45" data-station-name="한양대" cx="889.5" cy="518.5" r="2"/>
+<circle class="st45" data-station-name="신답" cx="892.5" cy="494.5" r="2"/>
+<circle class="st45" data-station-name="뚝섬" cx="892.5" cy="534.5" r="2"/>
 <circle class="st40" cx="892.5" cy="1072.5" r="2"/>
 <circle class="st46" data-station-name="마장" cx="893.5" cy="498.5" r="2"/>
 <circle class="st63" cx="894.5" cy="1029.5" r="2"/>
@@ -1700,8 +1700,8 @@
 <circle class="st47" cx="907.5" cy="601.5" r="2"/>
 <circle class="st54" cx="907.5" cy="638.5" r="2"/>
 <circle class="st46" data-station-name="답십리" cx="910.5" cy="499.5" r="2"/>
-<circle class="st45" cx="910.5" cy="512.5" r="2"/>
-<circle class="st25" cx="911" cy="552" r="3"/>
+<circle class="st45" data-station-name="용답" cx="910.5" cy="512.5" r="2"/>
+<circle class="st25" data-station-name="성수" cx="911" cy="552" r="3"/>
 <circle class="st54" cx="912.5" cy="1045.5" r="2"/>
 <circle class="st55" cx="913.5" cy="1055.5" r="2"/>
 <circle class="st59" data-station-name="대치" cx="914.5" cy="631.5" r="2"/>
@@ -1734,7 +1734,7 @@
 <circle class="st25" cx="934" cy="145" r="3"/>
 <circle class="st25" cx="934" cy="227" r="3"/>
 <circle class="st40" cx="935.8" cy="1072.6" r="2"/>
-<circle class="st25" cx="937" cy="557" r="3"/>
+<circle class="st25" data-station-name="건대입구" cx="937" cy="557" r="3"/>
 <circle class="st59" data-station-name="대청" cx="940.5" cy="637.5" r="2"/>
 <circle class="st59" cx="940.5" cy="649.5" r="2"/>
 <circle class="st54" data-station-name="일원" cx="940.5" cy="1045.5" r="2"/>
@@ -1771,8 +1771,8 @@
 <circle class="st54" cx="964.5" cy="998.5" r="2"/>
 <circle class="st54" cx="964.5" cy="1031.5" r="2"/>
 <circle class="st25" data-station-name="수서" cx="966" cy="649" r="3"/>
-<circle class="st45" cx="966.5" cy="556.5" r="2"/>
-<circle class="st45" cx="966.5" cy="608.5" r="2"/>
+<circle class="st45" data-station-name="구의" cx="966.5" cy="556.5" r="2"/>
+<circle class="st45" data-station-name="잠실새내" cx="966.5" cy="608.5" r="2"/>
 <circle class="st47" cx="967.5" cy="623.5" r="2"/>
 <circle class="st55" cx="967.5" cy="1055.5" r="2"/>
 <circle class="st54" cx="969.5" cy="869.5" r="2"/>
@@ -1797,10 +1797,10 @@
 <circle class="st25" cx="986" cy="733" r="3"/>
 <circle class="st25" cx="986" cy="839" r="3"/>
 <circle class="st62" cx="986.5" cy="370.5" r="2"/>
-<circle class="st45" cx="986.5" cy="560.5" r="2"/>
-<circle class="st45" cx="986.5" cy="580.5" r="2"/>
+<circle class="st45" data-station-name="강변" cx="986.5" cy="560.5" r="2"/>
+<circle class="st45" data-station-name="잠실나루" cx="986.5" cy="580.5" r="2"/>
 <circle class="st25" cx="987" cy="449" r="3"/>
-<circle class="st25" cx="987" cy="588" r="3"/>
+<circle class="st25" data-station-name="잠실" cx="987" cy="588" r="3"/>
 <circle class="st25" cx="987" cy="603" r="3"/>
 <circle class="st56" cx="987.5" cy="214.5" r="2"/>
 <circle class="st52" cx="987.5" cy="629.5" r="2"/>
