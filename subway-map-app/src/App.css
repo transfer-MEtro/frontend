@@ -120,17 +120,34 @@
   /* Center the title or content */
   border-bottom: 1px solid #0a0d2c;
   /* Optional bottom border for separation */
+  display: flex;
+  /* Use flexbox for layout */
+  align-items: center;
+  /* Align items vertically */
+  justify-content: space-between;
 }
 
 .drawer-header h2 {
   font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
   /* Use Noto Sans font */
   color: white;
   /* Set text color to white */
-  font-size: 16px;
+  font-size: 20px;
   /* Set font size to 16px */
   margin: 0;
   /* Remove default margin */
+}
+
+.station-name-box {
+  background-color: #f0f0f0;
+  color: black;
+  font-size: 20px;
+  /* Light gray background for the box */
+  padding: 5px 10px;
+  /* Padding inside the box */
+  border-radius: 5px;
+  /* Optional: rounded corners */
 }
 
 .drawer.open {

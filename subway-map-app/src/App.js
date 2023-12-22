@@ -202,7 +202,12 @@ function App() {
           </button>
 
           <div className="drawer-header">
-            <h2>Real Time Congestion</h2>
+            <h2>실시간 지하철 혼잡도</h2>
+            {stationData.length > 0 && (
+              <div className="station-name-box">
+                {stationData[0].stationName}
+              </div>
+            )}
           </div>
 
           <div className="drawer-content">
