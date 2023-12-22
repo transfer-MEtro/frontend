@@ -150,6 +150,47 @@
   /* Optional: rounded corners */
 }
 
+.congestions-container {
+  display: flex;
+  /* Align rectangles in a row */
+  gap: 5px;
+  /* Space between rectangles */
+}
+
+.congestion-rect {
+  background-color: #f0f0f0;
+  /* Light gray background */
+  padding: 2px 4px;
+  /* Smaller padding */
+  border-radius: 3px;
+  /* Adjusted rounded corners */
+  width: 10px;
+  /* Smaller width */
+  height: 5px;
+  /* Smaller height */
+  display: flex;
+  /* To center content */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  font-size: 12px;
+  /* Smaller font size */
+  /* Add other styles as needed */
+}
+
+.high-congestion {
+  background-color: red;
+}
+
+.medium-congestion {
+  background-color: orange;
+}
+
+.low-congestion {
+  background-color: green;
+}
+
 .drawer.open {
   left: 0;
 }

@@ -151,7 +151,7 @@ function App() {
   useEffect(() => {
     if (selectedStationName) {
       console.log(selectedStationName);
-      const url = `http://127.0.0.1:5001/stations/${encodeURIComponent(selectedStationName)}`;
+      const url = `http://127.0.0.1:5001/congestions/${encodeURIComponent(selectedStationName)}`;
 
       fetch(url)
         .then(response => response.json())
@@ -170,12 +170,25 @@ function App() {
 
   // SECONDS TO MINUTES
   function formatETA(seconds) {
-    if (seconds < 60) {
+    if (seconds === 0) {
+      return `도착`;
+    } else if (seconds < 60) {
       return `${seconds}초`;
     } else {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
       return `${minutes}분 ${remainingSeconds}초`;
+    }
+  }
+
+  // CONGESTION CLASS
+  function getCongestionClass(congestionValue) {
+    if (congestionValue > 160) {
+      return "high-congestion";
+    } else if (congestionValue > 54) {
+      return "medium-congestion";
+    } else {
+      return "low-congestion";
     }
   }
 
@@ -215,14 +228,21 @@ function App() {
               <div className="station-info">
                 {stationData.map((item, index) => (
                   <div key={index}>
-                    <p>지하철역: {item.stationName}</p>
                     <p>열차번호: {item.trainId}</p>
-                    <p>Subway ID: {item.subwayId}</p>
-                    <p>Line Number: {item.lineNumber}</p>
-                    <p>예상도착시간: {formatETA(item.estimatedTimeArrival)}</p>
+                    <p>호선: {item.lineNumber}</p>
+                    <p>예상 도착시간: {formatETA(item.estimatedTimeArrival)}</p>
                     <p>Next Station ID: {item.nextStationId}</p>
                     <p>Previous Station ID: {item.previousStationId}</p>
-                    <p>Station ID: {item.stationId}</p>
+                    <div className="congestions-container">
+                      {item.congestions.map((congestion, idx) => (
+                        <div
+                          key={idx}
+                          className={`congestion-rect ${getCongestionClass(congestion)}`}
+                        >
+                          {congestion}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
