@@ -1,17 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
 
 .Subway-map {
   width: 100vw;
@@ -34,19 +21,6 @@
   /* Standard */
 }
 
-.Menu {
-  position: absolute;
-  top: 20px;
-  /* Adjust as needed */
-  left: 20px;
-  /* Adjust as needed */
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  color: black;
-}
-
 .button-container {
   position: fixed;
   /* or 'absolute' depending on your layout */
@@ -66,10 +40,11 @@
 }
 
 .button-container button {
-  background-color: transparent;
+  background-color: white;
   /* Or any desired color */
-  border: none;
-  /* Removes the default border */
+  border: 2px solid #000000;
+  /* Black border, 2px thick */
+  border-radius: 5px;
   cursor: pointer;
   /* Changes cursor to pointer on hover */
   margin-bottom: 5px;
@@ -103,16 +78,151 @@
   padding: 5px 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.drawer {
+  position: fixed;
+  left: -400px;
+  /* Width of the drawer */
+  top: 0;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  transition: left 0.3s;
+  z-index: 1000;
+  border: 2px solid #000000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.drawer-content {
+  max-height: 800px;
+  /* Adjust this value based on your needs */
+  overflow-y: auto;
+  /* Enables vertical scrolling if content exceeds max-height */
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.drawer-header {
+  background-color: #260f8d;
+  /* Example background color */
+  padding: 10px 15px;
+  /* Example padding */
+  text-align: left;
+  /* Center the title or content */
+  border-bottom: 1px solid #0a0d2c;
+  /* Optional bottom border for separation */
+  display: flex;
+  /* Use flexbox for layout */
+  align-items: center;
+  /* Align items vertically */
+  justify-content: space-between;
+}
+
+.drawer-header h2 {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold;
+  /* Use Noto Sans font */
+  color: white;
+  /* Set text color to white */
+  font-size: 20px;
+  /* Set font size to 16px */
+  margin: 0;
+  /* Remove default margin */
+}
+
+.station-name-box {
+  background-color: #f0f0f0;
+  color: black;
+  font-size: 20px;
+  /* Light gray background for the box */
+  padding: 5px 10px;
+  /* Padding inside the box */
+  border-radius: 5px;
+  /* Optional: rounded corners */
+}
+
+.congestions-container {
+  display: flex;
+  /* Align rectangles in a row */
+  gap: 5px;
+  /* Space between rectangles */
+}
+
+.congestion-rect {
+  background-color: #f0f0f0;
+  /* Light gray background */
+  padding: 2px 4px;
+  /* Smaller padding */
+  border-radius: 3px;
+  /* Adjusted rounded corners */
+  width: 10px;
+  /* Smaller width */
+  height: 5px;
+  /* Smaller height */
+  display: flex;
+  /* To center content */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  font-size: 12px;
+  /* Smaller font size */
+  /* Add other styles as needed */
+}
+
+.high-congestion {
+  background-color: red;
+}
+
+.medium-congestion {
+  background-color: orange;
+}
+
+.low-congestion {
+  background-color: green;
+}
+
+.drawer.open {
+  left: 0;
+}
+
+.toggle-drawer-button {
+  position: absolute;
+  right: -35px;
+  /* Adjust based on button size */
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 2px solid #000000;
+  /* Black border, 2px thick */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-drawer-button img {
+  width: 20px;
+  /* Adjust size as needed */
+  height: 50px;
+}
+
+.station-info {
+  color: #000000;
+  /* Change text color to black */
+  font-size: 14px;
+  /* Set a smaller font size */
+  padding: 10px;
+  /* Add more styles as needed */
+}
+
+.station-info p {
+  margin: 5px 0;
+  /* Adjust spacing between lines */
+  /* Additional styling for paragraph elements if needed */
+}
+
+.station-info div {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  /* Thin divisor line */
+}
+
+/* Remove the border from the last item */
+.station-info div:last-child {
+  border-bottom: none;
 }

@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
 import unescapeJs from 'unescape-js';
 import './App.css';
+import stationDictionary from './stationDictionary.js';
 
 // importing assets
 import { ReactComponent as SubwayMap } from './assets/map.svg';
 import ZoomInIcon from './assets/zoom_in.png'; // Adjust path as necessary
 import ZoomOutIcon from './assets/zoom_out.png'; // Adjust path as necessary
+import RightArrowIcon from './assets/right_arrow.png';
+import LeftArrowIcon from './assets/left_arrow.png';
 
 
 function App() {
-  const [isMenuVisible, setMenuVisibility] = useState(false);
-  const [menuMessage, setMenuMessage] = useState('');
 
+  // --------------------------------------------------
+  //                        MENU
+  // --------------------------------------------------
   const handleStationClick = (station) => {
-    console.log('홍대입구');
-    console.log('Station clicked:', station.getAttribute('data-station-name'));
-
     const rawStationName = station.getAttribute('data-station-name');
     const decodedStationName = unescapeJs(rawStationName);
-    console.log('Station clicked:', decodedStationName);
-    setMenuMessage(`Station was clicked: ${decodedStationName}`);
-    setMenuVisibility(true);
+    setSelectedStationName(decodedStationName);
   };
 
   useEffect(() => {
@@ -42,26 +41,22 @@ function App() {
   }, []);
 
 
-  // INITIAL VIEW
-
-  // Assuming you know the dimensions of your SVG
+  // --------------------------------------------------
+  //                 INITIAL VIEWBOX
+  // --------------------------------------------------
   const svgWidth = 1000; // Replace with actual width of your SVG
   const svgHeight = 1000; // Replace with actual height of your SVG
-  const initialZoom = 0.3; // Adjust as needed for initial zoom level
-  const offsetX = 250; // Increase or decrease this value to shift more or less
+  const MIN_ZOOM_LEVEL = 1.0;
+  const initialZoom = 0.3;
+  const offsetX = 300; // Increase or decrease this value to shift more or less
   const offsetY = 50; // Increase or decrease this value to shift more or less
 
-  // Calculate initial viewBox values to center and zoom
-  const initialViewBox = {
-    x: (svgWidth / 2 * (1 - initialZoom)) + offsetX,
-    y: (svgHeight / 2 * (1 - initialZoom)) + offsetY,
-    width: svgWidth * initialZoom,
-    height: svgHeight * initialZoom
-  };
+  const initialViewBoxString = `${(svgWidth / 2 * (1 - initialZoom)) + offsetX} ${(svgHeight / 2 * (1 - initialZoom)) + offsetY} ${svgWidth * initialZoom} ${svgHeight * initialZoom}`;
+  const [viewBox, setViewBox] = useState(initialViewBoxString);
 
-  const [viewBox, setViewBox] = useState(`${initialViewBox.x} ${initialViewBox.y} ${initialViewBox.width} ${initialViewBox.height}`);
-
-  // PANNING
+  // --------------------------------------------------
+  //                     PANNING
+  // --------------------------------------------------
   const [isDragging, setIsDragging] = useState(false);
   const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
 
@@ -107,29 +102,93 @@ function App() {
   };
 
 
-  // ZOOMING
-  const [zoomLevel, setZoomLevel] = useState(1); // Start with a default zoom level of 1
+  // --------------------------------------------------
+  //                        ZOOM
+  // --------------------------------------------------
+  const [zoomLevel, setZoomLevel] = useState(initialZoom);
 
   const handleZoomIn = () => {
     setZoomLevel(prevZoomLevel => Math.min(prevZoomLevel * 1.2, 5)); // Zoom in by 20%, max zoom level 5
   };
 
   const handleZoomOut = () => {
-    setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel / 1.2, 0.2)); // Zoom out by 20%, min zoom level 0.2
+    setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel / 1.2, MIN_ZOOM_LEVEL)); // Ensure zoom level does not go below MIN_ZOOM_LEVEL
   };
 
   useEffect(() => {
-    if (zoomLevel !== 1) { // Only update viewBox if zoomLevel is not at its initial state
+    if (zoomLevel !== initialZoom) {
+      const currentViewBox = viewBox.split(' ').map(Number);
+
       const newWidth = svgTotalWidth / zoomLevel;
       const newHeight = svgTotalHeight / zoomLevel;
-      const newX = (svgTotalWidth - newWidth) / 2;
-      const newY = (svgTotalHeight - newHeight) / 2;
+
+      // Calculate the center based on the current viewBox
+      const centerX = currentViewBox[0] + currentViewBox[2] / 2;
+      const centerY = currentViewBox[1] + currentViewBox[3] / 2;
+
+      const newX = centerX - newWidth / 2;
+      const newY = centerY - newHeight / 2;
 
       setViewBox(`${newX} ${newY} ${newWidth} ${newHeight}`);
     }
-  }, [zoomLevel]);
+  }, [zoomLevel, viewBox, initialZoom]);
 
 
+  // --------------------------------------------------
+  //                        DRAWER
+  // --------------------------------------------------
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // GET TRAINS AND CONGESTION DATA
+  const [selectedStationName, setSelectedStationName] = useState('');
+  const [stationData, setStationData] = useState([]);
+
+  useEffect(() => {
+    if (selectedStationName) {
+      console.log(selectedStationName);
+      const url = `http://127.0.0.1:5001/congestions/${encodeURIComponent(selectedStationName)}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Process your data here
+          setStationData(data);
+          console.log(data);
+          console.log(`Station was clicked: ${data.stationName}`);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+  }, [selectedStationName]);
+
+
+  // SECONDS TO MINUTES
+  function formatETA(seconds) {
+    if (seconds === 0) {
+      return `도착`;
+    } else if (seconds < 60) {
+      return `${seconds}초`;
+    } else {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}분 ${remainingSeconds}초`;
+    }
+  }
+
+  // CONGESTION CLASS
+  function getCongestionClass(congestionValue) {
+    if (congestionValue > 160) {
+      return "high-congestion";
+    } else if (congestionValue > 54) {
+      return "medium-congestion";
+    } else {
+      return "low-congestion";
+    }
+  }
+
+
+  // --------------------------------------------------
   return (
     <div className="App" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <header className="App-header">
@@ -144,11 +203,48 @@ function App() {
             <img src={ZoomOutIcon} alt="Zoom Out" />
           </button>
         </div>
-        {isMenuVisible && (
-          <div className="Menu">
-            {menuMessage}
+
+        <div className={`drawer ${isDrawerOpen ? 'open' : ''}`}>
+          <button className="toggle-drawer-button" onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
+            <img src={isDrawerOpen ? LeftArrowIcon : RightArrowIcon} alt="Toggle Drawer" />
+          </button>
+
+          <div className="drawer-header">
+            <h2>실시간 지하철 혼잡도</h2>
+            {stationData.length > 0 && (
+              <div className="station-name-box">
+                {stationData[0].stationName}
+              </div>
+            )}
           </div>
-        )}
+
+          <div className="drawer-content">
+            {stationData && (
+              <div className="station-info">
+                {stationData.map((item, index) => (
+                  <div key={index}>
+                    <p>열차번호: {item.trainId}</p>
+                    <p>호선: {item.lineNumber}</p>
+                    <p>예상 도착시간: {formatETA(item.estimatedTimeArrival)}</p>
+                    <p>다음역: {stationDictionary[item.nextStationId]}</p>
+                    <p>전역: {stationDictionary[item.previousStationId]}</p>
+                    <div className="congestions-container">
+                      {item.congestions.map((congestion, idx) => (
+                        <div
+                          key={idx}
+                          className={`congestion-rect ${getCongestionClass(congestion)}`}
+                        >
+                          {congestion}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+        </div>
       </header>
     </div>
   );
