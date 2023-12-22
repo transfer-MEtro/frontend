@@ -146,7 +146,7 @@ function App() {
   useEffect(() => {
     if (selectedStationName) {
       console.log(selectedStationName);
-      const url = `http://127.0.0.1:5001/congestions/${encodeURIComponent(selectedStationName)}`;
+      const url = `http://3.34.123.31/congestions/${encodeURIComponent(selectedStationName)}`;
 
       fetch(url)
         .then(response => response.json())
