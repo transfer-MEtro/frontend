@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import unescapeJs from 'unescape-js';
 import './App.css';
+import stationDictionary from './stationDictionary.js';
 
 // importing assets
 import { ReactComponent as SubwayMap } from './assets/map.svg';
@@ -231,8 +232,8 @@ function App() {
                     <p>열차번호: {item.trainId}</p>
                     <p>호선: {item.lineNumber}</p>
                     <p>예상 도착시간: {formatETA(item.estimatedTimeArrival)}</p>
-                    <p>Next Station ID: {item.nextStationId}</p>
-                    <p>Previous Station ID: {item.previousStationId}</p>
+                    <p>다음역: {stationDictionary[item.nextStationId]}</p>
+                    <p>전역: {stationDictionary[item.previousStationId]}</p>
                     <div className="congestions-container">
                       {item.congestions.map((congestion, idx) => (
                         <div
